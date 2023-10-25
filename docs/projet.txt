@@ -37,7 +37,6 @@ PROXIES : Compte,Titre
 - map titre->prix(prix de vente, prix d'achat et prix courant(prix derniere auction))
 
 operations : changer prix
-	     si necessaire, appeler ordre pour mettre a jour le prix 
 
 7) Execution
 
