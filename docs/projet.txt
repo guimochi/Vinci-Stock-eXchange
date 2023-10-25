@@ -1,0 +1,59 @@
+PROJET SPRING (Printemps en français)
+
+micro services : 
+
+1) COMPTES
+- id : généré
+- nom : String
+- mdp : String
+- cash (peut etre négatif) double
+- titres (map de Titre:qté) 
+
+PROXIES : Titre
+
+2) TITRES
+- nom (ex: AAPL) : String
+
+3) ORDRES (entity ordre)
+- type : enum(LIMIT,Market)
+- titre : Titre 
+- qté : int
+- coté : enum(acheteur,vendeur)
+- prix : double
+- donneur d'ordre : Compte
+ 
+operations : nouvelle fixation de PRIX quand ordre est crée
+
+	     
+ 
+PROXIES : Compte,Titre
+
+4) GATEWAY ( a faire a la fin fin)
+
+5) AUTHENTICATION
+(copié collé du cours)
+
+6) PRIX(entity=price)
+- map titre->prix(prix de vente, prix d'achat et prix courant(prix derniere auction))
+
+operations : changer prix
+	     si necessaire, appeler ordre pour mettre a jour le prix 
+
+7) Execution
+
+operations : 
+	récuperer tous les ordres
+	recuperer les prix
+	recuperer titres
+	recuperer accounts
+
+
+Ventes a découvert et achat sur marge : pas de limite dans ce contexte
+
+
+note: si il y a deux ordres d'achat (un a 11 et l'autre a 13) et qu'un ordre de vente pop au prix du marché, il n'est pas précisé quel stratégie faire pour
+fixer le prix mais dans la vraie vie on regarde le prix d'execution du dernier ordre de vente pour ce titre, et on accepte la valeur d'achat la plus proche
+
+ou alors
+
+on execute juste le premier ordre arrivé
