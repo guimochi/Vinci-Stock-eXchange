@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: Vinci Stock eXchange stock service
+  version: 1.0.0
+servers:
+  - url: http://localhost:9002
+    description: Development server
+paths:
+  /stocks:
+    get:
+      summary: Get all stocks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/stock'
+  /stocks/{stock-id}:
+    get:
+      summary: get one stock
+      parameters:
+        - name: stock id
+          in: path
+          required: true
+          description: Stock id
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+  /stocks/create:
+    post:
+      summary: Create a new stock for user
+      requestBody:
+        description: Stock to create
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/stock'
+      responses:
+        200:
+          description: OK
+        409:
+          description: Conflict
+        400:
+          description: Bad Request
+
+components:
+  schemas:
+    stock:
+      type: object
+      properties:
+        id:
+          type: number
+        owner:
+          type: string
+        stock_name:
+          type: string
+        quantity:
+          type: number
