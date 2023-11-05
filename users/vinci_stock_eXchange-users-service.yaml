@@ -23,12 +23,13 @@ paths:
         content:
           'application/json':
             schema:
-              $ref: '#/components/schemas/user'
+              $ref: '#/components/schemas/new_user'
+
       responses:
         200:
           description: User created
         400:
-          description: Username does not match body or is invalid 
+          description: Username does not match body or is invalid
         409:
           description: Username already taken
     get:
@@ -75,10 +76,27 @@ components:
           type: string
         firstname:
           type: string
+        lastname:
+          type: string
         cash:
           type: number
           format: double
       example:
         username: "Alice007"
         firstname: "Alice"
+        lastname: "Wonderland"
         cash: 0.0
+
+    new_user:
+      type: object
+      properties:
+        username:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+      example:
+        username: "Alice007"
+        firstname: "Alice"
+        lastname: "Wonderland"

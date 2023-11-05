@@ -3,11 +3,10 @@ PROJET SPRING (Printemps en français)
 micro services : 
 
 1) COMPTES
-- id : généré
-- nom : String
-- mdp : String
+- id : int
+- first name : String
+- last name : String
 - cash (peut etre négatif) double
-- titres (map de Titre:qté) 
 
 PROXIES : Titre
 
