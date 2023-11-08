@@ -1,0 +1,118 @@
+openapi: 3.0.3
+info:
+  title: vinci-stock-eXchange-gateway-service
+  description: vinci-stock-eXchange-gateway-service
+  version: 1.0.0
+servers:
+    - url: http://localhost:8080
+      description: Development server
+paths:
+  /auth:
+    post:
+      summary: Authenticate user
+      requestBody:
+        description: User credentials
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/credentials'
+      responses:
+        '200':
+          description: User authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /users/{username}:
+    parameters:
+      - name: username
+        in: path
+        description: username of the user
+        schema:
+          type: string
+        example: PetWard
+    post:
+      summary: Create user
+      requestBody:
+        description: User
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/userWithCredentials'
+      responses:
+        400:
+          description: Invalid user input (Bad Request)
+        409:
+          description: Already exists (Conflict)
+        201:
+          description: Created
+    get:
+      summary: Read user
+      responses:
+        404:
+          description: Not found
+        200:
+          description: Found
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/user'
+
+
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        username:
+          type: string
+        firstname:
+            type: string
+        lastname:
+            type: string
+        cash:
+          type: number
+      example:
+        username: Alice007
+        firstname: Alice
+        lastname: Wonderland
+        cash: 1000.0
+
+
+
+    credentials:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      example:
+        username: Alice007
+        password: password123
+
+    userWithCredentials:
+      type: object
+      properties:
+        username:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        password:
+          type: string
+
