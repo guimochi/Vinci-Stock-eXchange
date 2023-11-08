@@ -1,4 +1,4 @@
-openapi: "3.0.2"
+openapi: "3.0.3"
 info:
   title: Vinci Stock eXchange users service
   version: "1.0"
@@ -6,15 +6,15 @@ servers:
   - url: http://localhost:9001
     description: Development Server
 paths:
-  /users/{username}:
+  /accounts/{acc-username}:
     parameters:
-    - name : username
-      in: path
-      required: true
-      schema:
-        type: string
-      example: "Alice007"
-      description: The user username
+      - name: acc-username
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "Alice007"
+        description: The user username
 
     post:
       summary: Create a new user
@@ -44,25 +44,88 @@ paths:
         404:
           description: User not found
     put:
-        summary: Update a user
-        requestBody:
-            description: User to update
-            content:
-              'application/json':
-                schema:
-                 $ref: '#/components/schemas/user'
-        responses:
-            200:
-              description: User updated
-            400:
-              description: Username does not match body or is invalid
-            404:
-              description: User not found
+      summary: Update a user
+      requestBody:
+        description: User to update
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/new_user'
+      responses:
+        200:
+          description: User updated
+        400:
+          description: Username does not match body or is invalid
+        404:
+          description: User not found
     delete:
-        summary: Delete a user
+      summary: Delete a user
+      responses:
+        200:
+          description: User deleted
+        404:
+          description: User not found
+
+  /accounts/{acc-username}/add-cash/{value}:
+    parameters:
+      - name: acc-username
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "Alice007"
+        description: The user username
+      - name: value
+        in: path
+        required: true
+        schema:
+          type: number
+          format: double
+        example: 1000.0
+        description: The amount of cash to add
+    patch:
+        summary: Add cash to a user
         responses:
             200:
-              description: User deleted
+                description: Cash added
+                content:
+                    'application/json':
+                        schema:
+                            $ref: '#/components/schemas/user'
+            400:
+                description: Value is invalid
+            404:
+                description: User not found
+
+
+  /accounts/{acc-username}/remove-cash/{value}:
+    parameters:
+    - name: acc-username
+      in: path
+      required: true
+      schema:
+        type: string
+      example: "Alice007"
+      description: The user username
+    - name: value
+      in: path
+      required: true
+      schema:
+        type: number
+        format: double
+      example: 1000.0
+      description: The amount of cash to remove
+    patch:
+        summary: Remove cash from a user
+        responses:
+            200:
+              description: Cash removed
+              content:
+                  'application/json':
+                    schema:
+                     $ref: '#/components/schemas/user'
+            400:
+              description: Value is invalid
             404:
               description: User not found
 
@@ -75,8 +138,6 @@ components:
         username:
           type: string
         firstname:
-          type: string
-        lastname:
           type: string
         cash:
           type: number
@@ -96,6 +157,7 @@ components:
           type: string
         lastname:
           type: string
+
       example:
         username: "Alice007"
         firstname: "Alice"
