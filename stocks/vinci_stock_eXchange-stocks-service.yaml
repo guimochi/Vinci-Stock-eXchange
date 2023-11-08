@@ -28,7 +28,7 @@ paths:
         400:
           description: Bad Request
         401:
-          description: Unauthorized
+          description: User unauthorized to do this action
 
   /stocks/{owner}/{stockname}/add/{quantity}:
     patch:
@@ -64,9 +64,9 @@ paths:
         400:
           description: Bad Request
         401:
-          description: Unauthorized
+          description: User unauthorized to do this action
         404:
-          description: Not Found
+          description: Ressource not found
 
   /stocks/{owner}/{stockname}/remove/{quantity}:
     patch:
@@ -104,15 +104,13 @@ paths:
         401:
           description: Unauthorized
         404:
-          description: Not Found
+          description: Ressource not found
 
 components:
   schemas:
     stock:
       type: object
       properties:
-        id:
-          type: number
         owner:
           type: string
         stock_name:
