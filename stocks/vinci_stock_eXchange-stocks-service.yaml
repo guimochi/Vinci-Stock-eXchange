@@ -6,18 +6,6 @@ servers:
   - url: http://localhost:9002
     description: Development server
 paths:
-  /stocks:
-    get:
-      summary: Get all stocks
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/stock'
   /stocks/{owner}:
     get:
       summary: get the owner stocks
@@ -26,6 +14,80 @@ paths:
           in: path
           required: true
           description: owner username
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/stock'
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+
+  /stocks/{owner}/{stockname}/add/{quantity}:
+    patch:
+      summary: add the asked quantity of the wanted stock to the owner
+      parameters:
+        - name: owner
+          in: path
+          required: true
+          description: owner username
+          schema:
+            type: string
+        - name: stockname
+          in: path
+          required: true
+          description: stock name
+          schema:
+            type: string
+        - name: quantity
+          in: path
+          required: true
+          description: quantity of stock wanted
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/stock'
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+
+  /stocks/{owner}/{stockname}/remove/{quantity}:
+    patch:
+      summary: remove the asked quantity of the wanted stock to the owner
+      parameters:
+        - name: owner
+          in: path
+          required: true
+          description: owner username
+          schema:
+            type: string
+        - name: stockname
+          in: path
+          required: true
+          description: stock name
+          schema:
+            type: string
+        - name: quantity
+          in: path
+          required: true
+          description: quantity of stock wanted
           schema:
             type: string
       responses:
