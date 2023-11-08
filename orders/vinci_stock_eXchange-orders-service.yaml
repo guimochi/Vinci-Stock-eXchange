@@ -1,7 +1,6 @@
 openapi: 3.0.3
 info:
   title: Vinci Stock eXchange Orders Service
-  description: This is the Vinci Stock eXchange Orders Service
   version: "1.0"
 servers:
   - url: https://localhost:9003
@@ -20,14 +19,34 @@ paths:
       responses:
         200:
             description: Order created
-            content:
-                application/json:
-                schema:
-                    $ref: "#/components/schemas/order"
         400:
             description: Invalid input, object invalid
         404:
-            description: Order not found
+            description: Owner or stock not found
+  /orders/{owner}:
+    parameters:
+      - name: owner
+        in: path
+        description: Owner username
+        required: true
+        schema:
+          type: string
+        example: "Alice007"
+    get:
+      summary: Get all orders of an owner (account username)
+      responses:
+        200:
+            description: Orders found
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/order"
+        404:
+            description: Owner not found
+        400:
+            description: Invalid input, object invalid
 
 
 components:
@@ -58,10 +77,29 @@ components:
           type: string
         stock-name:
             type: string
-        quantity:
+        initial-quantity:
             type: number
             format: integer
-        //todo: add properties from entity
+        current-quantity:
+            type: number
+            format: integer
+        side:
+            type: string
+            enum: [BUY, SELL]
+        type:
+            type: string
+            enum: [MARKET, LIMIT]
+        state:
+            type: string
+            enum: [NEW, PARTIALLY_FILLED, FILLED]
+        price:
+            type: number
+            format: double
+        creation-date:
+            type: string
+            format: date-time
+
+
 
 
   
