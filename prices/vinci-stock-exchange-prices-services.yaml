@@ -44,16 +44,15 @@ paths:
         404:
           description: Price not found
 
-    put:
-
-      summary: Update price
-      requestBody:
-        description: New values to update
-        required: true
-        content:
-          'application/json':
-            schema:
-              $ref: '#/components/schemas/price'
+    patch:
+      summary: Actualize prices by stock name
+      parameters:
+        - name: stockName
+          in: path
+          required: true
+          description: Name of the stock
+          schema:
+            type: string
       responses:
         200:
           description: Price updated
@@ -61,8 +60,37 @@ paths:
             'application/json':
               schema:
                 $ref: '#/components/schemas/price'
-        400:
-          description: Invalid input
+        404:
+          description: No stock found
+
+
+  /prices/{stockName}/{lastPrice}:
+
+        patch:
+          summary: Actualize last price by stock name
+          parameters:
+            - name: stockName
+              in: path
+              required: true
+              description: Name of the stock
+              schema:
+                type: string
+            - name: lastPrice
+              in: path
+              required: true
+              description: Value of the last price
+              schema:
+                type: number
+                format: double
+          responses:
+            200:
+              description: Price updated
+              content:
+                'application/json':
+                  schema:
+                    $ref: '#/components/schemas/price'
+            404:
+              description: No stock found
 
 
 components:
