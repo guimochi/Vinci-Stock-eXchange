@@ -1,0 +1,172 @@
+openapi: "3.0.3"
+info:
+  title: Vinci Stock eXchange users service
+  version: "1.0"
+servers:
+  - url: http://localhost:9001
+    description: Development Server
+paths:
+  /accounts/{username}:
+    parameters:
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "Alice007"
+        description: The user username
+
+    post:
+      summary: Create a new user
+      requestBody:
+        description: User to create
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/new_user'
+
+      responses:
+        200:
+          description: User created
+        400:
+          description: Username does not match body or is invalid
+        409:
+          description: Username already taken
+          
+    get:
+      summary: Get a user
+      responses:
+        200:
+          description: User found
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/user'
+        404:
+          description: User not found
+    put:
+      summary: Update a user
+      requestBody:
+        description: User to update
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/new_user'
+      responses:
+        200:
+          description: User updated
+        400:
+          description: Username does not match body or is invalid
+        401:
+          description: User unauthorized to do this action
+        404:
+          description: User not found
+          
+    delete:
+      summary: Delete a user
+      responses:
+        200:
+          description: User deleted
+        404:
+          description: User not found
+
+
+  /accounts/{username}/add-cash/{value}:
+    parameters:
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "Alice007"
+        description: The user username
+      - name: value
+        in: path
+        required: true
+        schema:
+          type: number
+          format: double
+        example: 1000.0
+        description: The amount of cash to add
+    patch:
+        summary: Add cash to a user
+        responses:
+            200:
+                description: Cash added
+                content:
+                    'application/json':
+                        schema:
+                            $ref: '#/components/schemas/user'
+            400:
+                description: Value is invalid
+            404:
+                description: User not found
+            401:
+                description: User unauthorized to do this action
+
+
+  /accounts/{username}/remove-cash/{value}:
+    parameters:
+    - name: username
+      in: path
+      required: true
+      schema:
+        type: string
+      example: "Alice007"
+      description: The user username
+    - name: value
+      in: path
+      required: true
+      schema:
+        type: number
+        format: double
+      example: 1000.0
+      description: The amount of cash to remove
+    patch:
+        summary: Remove cash from a user
+        responses:
+            200:
+              description: Cash removed
+              content:
+                  'application/json':
+                    schema:
+                     $ref: '#/components/schemas/user'
+            400:
+              description: Value is invalid
+            404:
+              description: User not found
+            401:
+              description: Unauthorized to do this action
+
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        username:
+          type: string
+        firstname:
+          type: string
+        cash:
+          type: number
+          format: double
+      example:
+        username: "Alice007"
+        firstname: "Alice"
+        lastname: "Wonderland"
+        cash: 0.0
+
+    new_user:
+      type: object
+      properties:
+        username:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+
+      example:
+        username: "Alice007"
+        firstname: "Alice"
+        lastname: "Wonderland"
