@@ -51,7 +51,7 @@ paths:
           required: true
           description: quantity of stock wanted
           schema:
-            type: string
+            type: integer
       responses:
         200:
           description: OK
@@ -89,7 +89,7 @@ paths:
           required: true
           description: quantity of stock wanted
           schema:
-            type: string
+            type: integer
       responses:
         200:
           description: OK
