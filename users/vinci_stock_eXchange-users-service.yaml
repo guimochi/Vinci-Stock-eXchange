@@ -6,9 +6,9 @@ servers:
   - url: http://localhost:9001
     description: Development Server
 paths:
-  /accounts/{acc-username}:
+  /accounts/{username}:
     parameters:
-      - name: acc-username
+      - name: username
         in: path
         required: true
         schema:
@@ -66,9 +66,9 @@ paths:
         404:
           description: User not found
 
-  /accounts/{acc-username}/add-cash/{value}:
+  /accounts/{username}/add-cash/{value}:
     parameters:
-      - name: acc-username
+      - name: username
         in: path
         required: true
         schema:
@@ -98,9 +98,9 @@ paths:
                 description: User not found
 
 
-  /accounts/{acc-username}/remove-cash/{value}:
+  /accounts/{username}/remove-cash/{value}:
     parameters:
-    - name: acc-username
+    - name: username
       in: path
       required: true
       schema:
