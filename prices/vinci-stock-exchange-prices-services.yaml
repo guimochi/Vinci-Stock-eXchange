@@ -1,0 +1,83 @@
+openapi: 3.0.3
+info:
+  title: Vinci Stock Exchange Prices Services
+  description: Microservice handling the prices of the stocks
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:9005'
+    description: Development server
+paths:
+
+  /prices:
+
+    get:
+      summary: Read all prices
+      responses:
+        200:
+          description: Returned list of prices
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/price'
+
+
+  /prices/{stockName}:
+
+    get:
+      summary: Read price by stock name
+      parameters:
+        - name: stockName
+          in: path
+          required: true
+          description: Name of the stock
+          schema:
+            type: string
+      responses:
+        200:
+          description: Returned price
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/price'
+        404:
+          description: Price not found
+
+    put:
+
+      summary: Update price
+      requestBody:
+        description: New values to update
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/price'
+      responses:
+        200:
+          description: Price updated
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/price'
+        400:
+          description: Invalid input
+
+
+components:
+  schemas:
+    price:
+      type: object
+      properties:
+        stockName:
+          type: string
+        buyPrice:
+          type: number
+          format: double
+        sellPrice:
+          type: number
+          format: double
+        lastPrice:
+          type: number
+          format: double

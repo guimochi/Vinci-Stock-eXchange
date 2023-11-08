@@ -56,3 +56,4 @@ fixer le prix mais dans la vraie vie on regarde le prix d'execution du dernier o
 ou alors
 
 on execute juste le premier ordre arrivé
+Les changements des valeurs du compte se seulement execute lorsqu'un ordre est complete
