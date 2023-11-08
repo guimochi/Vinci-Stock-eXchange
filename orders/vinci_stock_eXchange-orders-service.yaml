@@ -23,11 +23,11 @@ paths:
             description: Invalid input, object invalid
         404:
             description: Owner or stock not found
-  /orders/{owner}:
+  /orders/{order-placer}:
     parameters:
       - name: owner
         in: path
-        description: Owner username
+        description: Order placer username
         required: true
         schema:
           type: string
@@ -47,6 +47,54 @@ paths:
             description: Owner not found
         400:
             description: Invalid input, object invalid
+  /orders/{stock-name}:
+    parameters:
+      - name: stock-name
+        in: path
+        description: Stock name
+        required: true
+        schema:
+          type: string
+        example: "LNRD"
+    get:
+      summary: Get all orders of a stock, empty if no orders
+      responses:
+        200:
+            description: Orders found
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/order"
+        400:
+            description: Invalid input, object invalid
+  /orders/{order-id}:
+    parameters:
+      - name: order-id
+        in: path
+        description: Order id
+        required: true
+        schema:
+          type: number
+          format: integer
+          example: 1
+    put:
+      summary: Update an order
+      requestBody:
+        description: Order to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/order"
+      responses:
+        200:
+            description: Order updated
+        400:
+            description: Invalid input, object invalid
+        404:
+            description: Order not found
 
 
 components:
@@ -54,7 +102,7 @@ components:
     orderToCreate:
       type: object
       properties:
-        owner:
+        order-placer:
           type: string
         stock-name:
             type: string
@@ -73,7 +121,10 @@ components:
     order:
       type: object
       properties:
-        owner:
+        order-id:
+          type: number
+          format: integer
+        order-placer:
           type: string
         stock-name:
             type: string
