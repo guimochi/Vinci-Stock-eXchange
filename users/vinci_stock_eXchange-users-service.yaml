@@ -32,6 +32,7 @@ paths:
           description: Username does not match body or is invalid
         409:
           description: Username already taken
+          
     get:
       summary: Get a user
       responses:
@@ -56,8 +57,11 @@ paths:
           description: User updated
         400:
           description: Username does not match body or is invalid
+        401:
+          description: User unauthorized to do this action
         404:
           description: User not found
+          
     delete:
       summary: Delete a user
       responses:
@@ -65,6 +69,7 @@ paths:
           description: User deleted
         404:
           description: User not found
+
 
   /accounts/{username}/add-cash/{value}:
     parameters:
@@ -96,6 +101,8 @@ paths:
                 description: Value is invalid
             404:
                 description: User not found
+            401:
+                description: User unauthorized to do this action
 
 
   /accounts/{username}/remove-cash/{value}:
@@ -128,7 +135,8 @@ paths:
               description: Value is invalid
             404:
               description: User not found
-
+            401:
+              description: Unauthorized to do this action
 
 components:
   schemas:
