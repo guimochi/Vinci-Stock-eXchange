@@ -9,10 +9,10 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>vinci.stock</groupId>
-  <artifactId>users</artifactId>
+  <artifactId>accounts</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>users</name>
-  <description>users</description>
+  <name>accounts</name>
+  <description>accounts</description>
   <properties>
     <java.version>17</java.version>
     <spring-cloud.version>2022.0.4</spring-cloud.version>
