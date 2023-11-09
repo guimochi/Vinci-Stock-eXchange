@@ -22,7 +22,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/price'
 
-
   /prices/{stock-name}:
     parameters:
       - name: stock-name
@@ -44,18 +43,6 @@ paths:
         404:
           description: Price not found
 
-    patch:
-      summary: Actualize prices by stock name
-      responses:
-        200:
-          description: Price updated
-          content:
-            'application/json':
-              schema:
-                $ref: '#/components/schemas/price'
-        404:
-          description: No stock found
-
 
   /prices/{stock-name}/{last-price}:
     parameters:
@@ -73,7 +60,7 @@ paths:
           type: number
           format: double
     patch:
-      summary: Actualize last price by stock name
+      summary: Update last price by stock name
       responses:
         200:
           description: Price updated
@@ -84,6 +71,42 @@ paths:
         404:
           description: No stock found
 
+  /prices/udpateAfterNewOrder:
+    post:
+      summary: Update price after new order
+      requestBody:
+        description: 'Necessary information about the order to update the price : { stock-name, 
+        side, type,
+         price}'
+        required: true
+        content:
+          'application/json':
+            schema:
+              type: object
+              properties:
+                stockName:
+                  type: string
+                side:
+                  type: string
+                  enum: [ BUY, SELL ]
+                type:
+                  type: string
+                  enum: [ MARKET, LIMIT ]
+                price:
+                  type: number
+                  format: double
+
+      responses:
+        200:
+          description: Price updated
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/price'
+        403:
+          description: Bad request
+        404:
+          description: No stock found
 
 components:
   schemas:
