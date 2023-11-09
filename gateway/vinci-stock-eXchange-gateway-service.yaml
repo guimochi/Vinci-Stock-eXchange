@@ -97,12 +97,12 @@ paths:
           description: Account not found
 
     delete:
-      summary: Delete a user
+      summary: Delete an account
       responses:
         200:
-          description: User deleted
+          description: Account deleted
         404:
-          description: User not found
+          description: Account not found
 
 
   /accounts/{username}/add-cash/{value}:
@@ -134,7 +134,7 @@ paths:
         400:
           description: Value is invalid
         404:
-          description: User not found
+          description: Account not found
         401:
           description: User unauthorized to do this action
 
@@ -168,7 +168,7 @@ paths:
         400:
           description: Value is invalid
         404:
-          description: User not found
+          description: Account not found
         401:
           description: Unauthorized to do this action
 
@@ -197,7 +197,7 @@ paths:
         401:
           description: User unauthorized to do this action
         404:
-          description: User not found
+          description: Account not found
 
 
   /stocks/{owner}/{stockname}/add/{quantity}:
@@ -354,7 +354,6 @@ paths:
           description: Owner not found
         400:
           description: Invalid input, object invalid
-
 
 
   /prices:
