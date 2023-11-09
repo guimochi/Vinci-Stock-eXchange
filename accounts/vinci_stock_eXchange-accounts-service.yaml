@@ -17,58 +17,60 @@ paths:
         description: The user username
 
     post:
-      summary: Create a new user
+      summary: Create a new account
       requestBody:
         description: User to create
         content:
           'application/json':
             schema:
-              $ref: '#/components/schemas/new_user'
+              $ref: '#/components/schemas/new_account'
 
       responses:
         200:
-          description: User created
+          description: Account created
         400:
           description: Username does not match body or is invalid
         409:
           description: Username already taken
           
     get:
-      summary: Get a user
+      summary: Get an account
       responses:
         200:
-          description: User found
+          description: Account found
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/user'
+                $ref: '#/components/schemas/account'
         404:
-          description: User not found
+          description: Account not found
     put:
-      summary: Update a user
+      summary: Update an account
       requestBody:
-        description: User to update
+        description: account to update
         content:
           'application/json':
             schema:
-              $ref: '#/components/schemas/new_user'
+              $ref: '#/components/schemas/new_account'
       responses:
         200:
-          description: User updated
+          description: Account updated
         400:
           description: Username does not match body or is invalid
         401:
           description: User unauthorized to do this action
         404:
-          description: User not found
+          description: Account not found
           
     delete:
-      summary: Delete a user
+      summary: Delete an account
       responses:
         200:
-          description: User deleted
+          description: Account deleted
+        401:
+          description: User unauthorized to do this action
         404:
-          description: User not found
+          description: Account not found
 
 
   /accounts/{username}/add-cash/{value}:
@@ -89,18 +91,18 @@ paths:
         example: 1000.0
         description: The amount of cash to add
     patch:
-        summary: Add cash to a user
+        summary: Add cash to the account
         responses:
             200:
                 description: Cash added
                 content:
                     'application/json':
                         schema:
-                            $ref: '#/components/schemas/user'
+                            $ref: '#/components/schemas/account'
             400:
                 description: Value is invalid
             404:
-                description: User not found
+                description: Account not found
             401:
                 description: User unauthorized to do this action
 
@@ -123,14 +125,14 @@ paths:
       example: 1000.0
       description: The amount of cash to remove
     patch:
-        summary: Remove cash from a user
+        summary: Remove cash from the account
         responses:
             200:
               description: Cash removed
               content:
                   'application/json':
                     schema:
-                     $ref: '#/components/schemas/user'
+                     $ref: '#/components/schemas/account'
             400:
               description: Value is invalid
             404:
@@ -140,7 +142,7 @@ paths:
 
 components:
   schemas:
-    user:
+    account:
       type: object
       properties:
         username:
@@ -156,7 +158,7 @@ components:
         lastname: "Wonderland"
         cash: 0.0
 
-    new_user:
+    new_account:
       type: object
       properties:
         username:

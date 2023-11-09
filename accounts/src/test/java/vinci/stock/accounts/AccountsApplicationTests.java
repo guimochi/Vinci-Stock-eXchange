@@ -1,10 +1,10 @@
-package vinci.stock.users;
+package vinci.stock.accounts;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UsersApplicationTests {
+class AccountsApplicationTests {
 
 	@Test
 	void contextLoads() {
