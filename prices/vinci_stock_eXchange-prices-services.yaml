@@ -23,17 +23,17 @@ paths:
                   $ref: '#/components/schemas/price'
 
 
-  /prices/{stockName}:
+  /prices/{stock-name}:
+    parameters:
+      - name: stock-name
+        in: path
+        required: true
+        description: Name of the stock
+        schema:
+          type: string
 
     get:
       summary: Read price by stock name
-      parameters:
-        - name: stockName
-          in: path
-          required: true
-          description: Name of the stock
-          schema:
-            type: string
       responses:
         200:
           description: Returned price
@@ -46,13 +46,6 @@ paths:
 
     patch:
       summary: Actualize prices by stock name
-      parameters:
-        - name: stockName
-          in: path
-          required: true
-          description: Name of the stock
-          schema:
-            type: string
       responses:
         200:
           description: Price updated
@@ -64,33 +57,32 @@ paths:
           description: No stock found
 
 
-  /prices/{stockName}/{lastPrice}:
-
-        patch:
-          summary: Actualize last price by stock name
-          parameters:
-            - name: stockName
-              in: path
-              required: true
-              description: Name of the stock
+  /prices/{stock-name}/{last-price}:
+    parameters:
+      - name: stock-name
+        in: path
+        required: true
+        description: Name of the stock
+        schema:
+          type: string
+      - name: last-price
+        in: path
+        required: true
+        description: Value of the last price
+        schema:
+          type: number
+          format: double
+    patch:
+      summary: Actualize last price by stock name
+      responses:
+        200:
+          description: Price updated
+          content:
+            'application/json':
               schema:
-                type: string
-            - name: lastPrice
-              in: path
-              required: true
-              description: Value of the last price
-              schema:
-                type: number
-                format: double
-          responses:
-            200:
-              description: Price updated
-              content:
-                'application/json':
-                  schema:
-                    $ref: '#/components/schemas/price'
-            404:
-              description: No stock found
+                $ref: '#/components/schemas/price'
+        404:
+          description: No stock found
 
 
 components:
