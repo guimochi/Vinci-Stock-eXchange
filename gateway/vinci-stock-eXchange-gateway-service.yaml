@@ -79,20 +79,28 @@ paths:
                 $ref: '#/components/schemas/account'
 
     put:
-      summary: Update a user
+      summary: Update an account
       requestBody:
-        description: User to update
+        description: Account to update
         content:
           'application/json':
             schema:
               $ref: '#/components/schemas/new_account'
       responses:
         200:
-          description: User updated
+          description: Account updated
         400:
           description: Username does not match body or is invalid
         401:
           description: User unauthorized to do this action
+        404:
+          description: Account not found
+
+    delete:
+      summary: Delete a user
+      responses:
+        200:
+          description: User deleted
         404:
           description: User not found
 
@@ -167,7 +175,7 @@ paths:
 
   /stocks/{owner}:
     get:
-      summary: get the owner stocks
+      summary: Get the owner stocks
       parameters:
         - name: owner
           in: path
@@ -194,7 +202,7 @@ paths:
 
   /stocks/{owner}/{stockname}/add/{quantity}:
     patch:
-      summary: add the asked quantity of the wanted stock to the owner
+      summary: Add the asked quantity of the wanted stock to the owner
       parameters:
         - name: owner
           in: path
@@ -233,7 +241,7 @@ paths:
 
   /stocks/{owner}/{stockname}/remove/{quantity}:
     patch:
-      summary: remove the asked quantity of the wanted stock to the owner
+      summary: Remove the asked quantity of the wanted stock to the owner
       parameters:
         - name: owner
           in: path
@@ -269,6 +277,23 @@ paths:
         404:
           description: Ressource not found
 
+  /orders:
+    post:
+      summary: Create a new order
+      requestBody:
+        description: Order to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/orderToCreate"
+      responses:
+        200:
+          description: Order created
+        400:
+          description: Invalid input, object invalid
+        404:
+          description: Owner or stock not found
 
   /orders/{order-placer}:
     parameters:
@@ -294,6 +319,7 @@ paths:
           description: Owner not found
         400:
           description: Invalid input, object invalid
+
 
 
   /prices:
@@ -393,6 +419,26 @@ components:
           type: string
         quantity:
           type: integer
+
+    orderToCreate:
+      type: object
+      properties:
+        order-placer:
+          type: string
+        stock-name:
+          type: string
+        quantity:
+          type: number
+          format: integer
+        side:
+          type: string
+          enum: [ BUY, SELL ]
+        type:
+          type: string
+          enum: [ MARKET, LIMIT ]
+        price:
+          type: number
+          format: float
 
     order:
       type: object
