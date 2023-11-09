@@ -1,0 +1,39 @@
+openapi: 3.0.3
+info:
+  title: Vinci Stock Exchange Exchange Service
+  description: Microservice handling the stock exchange
+  version: 1.0.0
+servers:
+  - url: "https://localhost:9003"
+    description: Local development server
+paths:
+  /exchange/{order-id}:
+    parameters:
+      - name: order-id
+        in: path
+        description: Order id to check
+        required: true
+        schema:
+          type: number
+          format: integer
+          example: 1
+
+    get:
+      summary: Check if the order can be executed
+      responses:
+        200:
+          description: Order exchange check has been executed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/executed"
+        404:
+          description: Order not found
+
+
+components:
+  schemas:
+    executed:
+      type: boolean
+      description: true if an exchange has been executed, false otherwise
+      example: true
