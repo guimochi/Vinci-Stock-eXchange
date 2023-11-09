@@ -28,28 +28,29 @@ paths:
         400:
           description: Bad Request
 
-  /stocks/{owner}/{stockname}/add/{quantity}:
+  /stocks/{owner}/{stock-name}/add/{quantity}:
+    parameters:
+      - name: owner
+        in: path
+        required: true
+        description: owner username
+        schema:
+          type: string
+      - name: stock-name
+        in: path
+        required: true
+        description: stock name
+        schema:
+          type: string
+      - name: quantity
+        in: path
+        required: true
+        description: quantity of stock wanted
+        schema:
+          type: integer
+
     patch:
       summary: add the asked quantity of the wanted stock to the owner
-      parameters:
-        - name: owner
-          in: path
-          required: true
-          description: owner username
-          schema:
-            type: string
-        - name: stockname
-          in: path
-          required: true
-          description: stock name
-          schema:
-            type: string
-        - name: quantity
-          in: path
-          required: true
-          description: quantity of stock wanted
-          schema:
-            type: integer
       responses:
         200:
           description: OK
@@ -64,7 +65,7 @@ paths:
         404:
           description: Ressource not found
 
-  /stocks/{owner}/{stockname}/remove/{quantity}:
+  /stocks/{owner}/{stock-name}/remove/{quantity}:
     patch:
       summary: remove the asked quantity of the wanted stock to the owner
       parameters:
@@ -74,7 +75,7 @@ paths:
           description: owner username
           schema:
             type: string
-        - name: stockname
+        - name: stock-name
           in: path
           required: true
           description: stock name
@@ -107,7 +108,7 @@ components:
       properties:
         owner:
           type: string
-        stock_name:
+        stockName:
           type: string
         quantity:
           type: number

@@ -332,7 +332,7 @@ paths:
         405:
           description: Order can't be cancelled if it's partially filled or filled
 
-  /orders/{order-placer}:
+  /orders/accounts/{order-placer}:
     parameters:
       - name: owner
         in: path

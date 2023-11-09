@@ -103,7 +103,7 @@ paths:
             'application/json':
               schema:
                 $ref: '#/components/schemas/price'
-        403:
+        400:
           description: Bad request
         404:
           description: No stock found

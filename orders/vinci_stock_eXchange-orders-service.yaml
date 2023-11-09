@@ -99,7 +99,8 @@ paths:
         405:
           description: Order can't be filled if it's already filled
 
-  /orders/{order-placer}:
+
+  /orders/accounts/{order-placer}:
     parameters:
       - name: owner
         in: path
@@ -126,7 +127,7 @@ paths:
           description: Invalid input, object invalid
 
 
-  /orders/{stock-name}:
+  /orders/stocks/{stock-name}:
     parameters:
       - name: stock-name
         in: path
@@ -135,9 +136,17 @@ paths:
         schema:
           type: string
         example: "LNRD"
+      - name: side
+        in: query
+        description: Side of the order
+        schema:
+          type: string
+          enum: [ BUY, SELL ]
+        example: "BUY"
 
     get:
-      summary: Get all orders of a stock, empty if no orders
+      summary: 'Get all a list of orders of a stock, empty if no orders, filtered by side [ BUY, 
+      SELL ] if asked'
       responses:
         200:
           description: Orders found
