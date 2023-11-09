@@ -1,6 +1,6 @@
 openapi: "3.0.3"
 info:
-  title: Vinci Stock eXchange users service
+  title: Vinci Stock eXchange accounts service
   version: "1.0"
 servers:
   - url: http://localhost:9001
@@ -14,7 +14,7 @@ paths:
         schema:
           type: string
         example: "Alice007"
-        description: The user username
+        description: The account username
 
     post:
       summary: Create a new account
@@ -58,7 +58,7 @@ paths:
         400:
           description: Username does not match body or is invalid
         401:
-          description: User unauthorized to do this action
+          description: account unauthorized to do this action
         404:
           description: Account not found
           
@@ -68,7 +68,7 @@ paths:
         200:
           description: Account deleted
         401:
-          description: User unauthorized to do this action
+          description: Account unauthorized to do this action
         404:
           description: Account not found
 
@@ -81,7 +81,7 @@ paths:
         schema:
           type: string
         example: "Alice007"
-        description: The user username
+        description: The account username
       - name: value
         in: path
         required: true
@@ -104,7 +104,7 @@ paths:
             404:
                 description: Account not found
             401:
-                description: User unauthorized to do this action
+                description: account unauthorized to do this action
 
 
   /accounts/{username}/remove-cash/{value}:
@@ -115,7 +115,7 @@ paths:
       schema:
         type: string
       example: "Alice007"
-      description: The user username
+      description: The account username
     - name: value
       in: path
       required: true
@@ -136,7 +136,7 @@ paths:
             400:
               description: Value is invalid
             404:
-              description: User not found
+              description: Account not found
             401:
               description: Unauthorized to do this action
 
