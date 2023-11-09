@@ -200,7 +200,7 @@ paths:
           description: Account not found
 
 
-  /stocks/{owner}/{stockname}/add/{quantity}:
+  /stocks/{owner}/{stock-name}/add/{quantity}:
     patch:
       summary: Add the asked quantity of the wanted stock to the owner
       parameters:
@@ -210,7 +210,7 @@ paths:
           description: owner username
           schema:
             type: string
-        - name: stockname
+        - name: stock-name
           in: path
           required: true
           description: stock name
@@ -239,7 +239,7 @@ paths:
           description: Ressource not found
 
 
-  /stocks/{owner}/{stockname}/remove/{quantity}:
+  /stocks/{owner}/{stock-name}/remove/{quantity}:
     patch:
       summary: Remove the asked quantity of the wanted stock to the owner
       parameters:
@@ -249,7 +249,7 @@ paths:
           description: owner username
           schema:
             type: string
-        - name: stockname
+        - name: stock-name
           in: path
           required: true
           description: stock name
@@ -325,6 +325,8 @@ paths:
       responses:
         200:
           description: Order deleted
+        401:
+          description: User unauthorized to do this action
         404:
           description: Order not found
         405:
@@ -370,12 +372,12 @@ paths:
                 items:
                   $ref: '#/components/schemas/price'
 
-  /prices/{stockName}:
+  /prices/{stock-name}:
 
     get:
       summary: Read price by stock name
       parameters:
-        - name: stockName
+        - name: stock-name
           in: path
           required: true
           description: Name of the stock

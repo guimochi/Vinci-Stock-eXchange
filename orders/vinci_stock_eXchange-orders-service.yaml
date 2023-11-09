@@ -18,57 +18,12 @@ paths:
               $ref: "#/components/schemas/orderToCreate"
       responses:
         200:
-            description: Order created
+          description: Order created
         400:
-            description: Invalid input, object invalid
+          description: Invalid input, object invalid
         404:
-            description: Owner or stock not found
-  /orders/{order-placer}:
-    parameters:
-      - name: owner
-        in: path
-        description: Order placer username
-        required: true
-        schema:
-          type: string
-        example: "Alice007"
-    get:
-      summary: Get all orders of an owner (account username)
-      responses:
-        200:
-            description: Orders found
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/order"
-        404:
-            description: Owner not found
-        400:
-            description: Invalid input, object invalid
-  /orders/{stock-name}:
-    parameters:
-      - name: stock-name
-        in: path
-        description: Stock name
-        required: true
-        schema:
-          type: string
-        example: "LNRD"
-    get:
-      summary: Get all orders of a stock, empty if no orders
-      responses:
-        200:
-            description: Orders found
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/order"
-        400:
-            description: Invalid input, object invalid
+          description: Owner or stock not found
+
   /orders/{order-id}:
     parameters:
       - name: order-id
@@ -105,21 +60,25 @@ paths:
               $ref: "#/components/schemas/order"
       responses:
         200:
-            description: Order updated
+          description: Order updated
         400:
-            description: Invalid input, object invalid
+          description: Invalid input, object invalid
         404:
-            description: Order not found
+          description: Order not found
+        405:
+          description: Order can't be updated if it's filled
 
     delete:
       summary: Delete an order
       responses:
         200:
-            description: Order deleted
+          description: Order deleted
+        401:
+          description: User unauthorized to do this action
         404:
-            description: Order not found
+          description: Order not found
         405:
-            description: Order can't be cancelled if it's partially filled or filled
+          description: Order can't be cancelled if it's partially filled or filled
 
   /orders/{order-id}/fill:
     parameters:
@@ -136,13 +95,65 @@ paths:
       summary: Fill an order
       responses:
         200:
-            description: Order filled
+          description: Order filled
         400:
-            description: Invalid input, object invalid
+          description: Invalid input, object invalid
         404:
-            description: Order not found
+          description: Order not found
         405:
-            description: Order can't be filled if it's already filled
+          description: Order can't be filled if it's already filled
+
+  /orders/{order-placer}:
+    parameters:
+      - name: owner
+        in: path
+        description: Order placer username
+        required: true
+        schema:
+          type: string
+        example: "Alice007"
+
+    get:
+      summary: Get all orders of an owner (account username)
+      responses:
+        200:
+          description: Orders found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/order"
+        404:
+          description: Owner not found
+        400:
+          description: Invalid input, object invalid
+
+
+  /orders/{stock-name}:
+    parameters:
+      - name: stock-name
+        in: path
+        description: Stock name
+        required: true
+        schema:
+          type: string
+        example: "LNRD"
+
+    get:
+      summary: Get all orders of a stock, empty if no orders
+      responses:
+        200:
+          description: Orders found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/order"
+        400:
+          description: Invalid input, object invalid
+
 
 components:
   schemas:
@@ -152,19 +163,19 @@ components:
         order-placer:
           type: string
         stock-name:
-            type: string
+          type: string
         quantity:
-            type: number
-            format: integer
+          type: number
+          format: integer
         side:
-            type: string
-            enum: [BUY, SELL]
+          type: string
+          enum: [ BUY, SELL ]
         type:
-            type: string
-            enum: [MARKET, LIMIT]
+          type: string
+          enum: [ MARKET, LIMIT ]
         price:
-            type: number
-            format: float
+          type: number
+          format: float
     order:
       type: object
       properties:
@@ -174,28 +185,28 @@ components:
         order-placer:
           type: string
         stock-name:
-            type: string
+          type: string
         initial-quantity:
-            type: number
-            format: integer
+          type: number
+          format: integer
         current-quantity:
-            type: number
-            format: integer
+          type: number
+          format: integer
         side:
-            type: string
-            enum: [BUY, SELL]
+          type: string
+          enum: [ BUY, SELL ]
         type:
-            type: string
-            enum: [MARKET, LIMIT]
+          type: string
+          enum: [ MARKET, LIMIT ]
         state:
-            type: string
-            enum: [NEW, PARTIALLY_FILLED, FILLED]
+          type: string
+          enum: [ NEW, PARTIALLY_FILLED, FILLED ]
         price:
-            type: number
-            format: double
+          type: number
+          format: double
         creation-date:
-            type: string
-            format: date-time
+          type: string
+          format: date-time
 
 
 
