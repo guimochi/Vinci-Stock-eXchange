@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: Vinci Stock eXchange authentication service
+  description: Vinci Stock eXchange Authentication Service
+  version: "1.0"
+servers:
+  - url: 'http://localhost:9004'
+    description: Development server
+paths:
+
+  /authenticate/connect:
+    post:
+      summary: Connect account
+      requestBody:
+        description: Credentials of the account
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/credentials'
+      responses:
+        400:
+          description: Credentials invalid
+        401:
+          description: Wrong username or password
+        200:
+          description: account connected, returned JWT token
+          content:
+            'text/plain':
+              schema:
+                type: string
+                example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJhdXRoMCIsInBzZXVkbyI6IkNhdDRMaWZlIn0.LqfooEI-I9VTBo-isjm812ttnIPagMCwdhRkW5ngn0_tlLX86LRoxahgskmgIeWDbm4Mu3y3D8Qbhq_71hNQTA
+
+  /authentication/verify:
+    post:
+      summary: Verify JWT token
+      requestBody:
+        description: JWT token
+        content:
+          'text/plain':
+            schema:
+              type: string
+              example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJhdXRoMCIsInBzZXVkbyI6IkNhdDRMaWZlIn0.LqfooEI-I9VTBo-isjm812ttnIPagMCwdhRkW5ngn0_tlLX86LRoxahgskmgIeWDbm4Mu3y3D8Qbhq_71hNQTA
+      responses:
+        401:
+          description: Token couldn't be verified
+        200:
+          description: Token verified, returned account username
+          content:
+            'application/json':
+              schema:
+                type: string
+                example: Alice007
+
+  /authentication/{username}:
+    parameters:
+      - name: username
+        in: path
+        description: username of the account
+        schema:
+          type: string
+
+    post:
+      summary: Create credentials
+      requestBody:
+        description: Credentials of the account
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/credentials'
+      responses:
+        400:
+          description: Credentials invalid
+        409:
+          description: Credentials already exists
+        201:
+          description: Credentials created
+
+    put:
+      summary: Update credentials
+      requestBody:
+        description: Credentials of the account
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/credentials'
+      responses:
+        400:
+          description: Credentials invalid
+        404:
+          description: Credentials not found
+        200:
+          description: Credentials updated
+
+    delete:
+      summary: Delete credentials
+      responses:
+        404:
+          description: Credentials not found
+        200:
+          description: Credentials deleted
+
+components:
+  schemas:
+    credentials:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      example:
+        username: Alice007
+        password: password123
