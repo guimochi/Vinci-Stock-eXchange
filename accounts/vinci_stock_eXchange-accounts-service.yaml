@@ -57,8 +57,6 @@ paths:
           description: Account updated
         400:
           description: Username does not match body or is invalid
-        401:
-          description: account unauthorized to do this action
         404:
           description: Account not found
           
@@ -67,8 +65,6 @@ paths:
       responses:
         200:
           description: Account deleted
-        401:
-          description: Account unauthorized to do this action
         404:
           description: Account not found
 
@@ -103,8 +99,6 @@ paths:
                 description: Value is invalid
             404:
                 description: Account not found
-            401:
-                description: account unauthorized to do this action
 
 
   /accounts/{username}/remove-cash/{value}:
@@ -137,8 +131,6 @@ paths:
               description: Value is invalid
             404:
               description: Account not found
-            401:
-              description: Unauthorized to do this action
 
 components:
   schemas:

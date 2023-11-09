@@ -44,8 +44,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/order"
-        401:
-          description: User unauthorized to do this action
         404:
           description: Order not found
 
@@ -73,8 +71,6 @@ paths:
       responses:
         200:
           description: Order deleted
-        401:
-          description: User unauthorized to do this action
         404:
           description: Order not found
         405:

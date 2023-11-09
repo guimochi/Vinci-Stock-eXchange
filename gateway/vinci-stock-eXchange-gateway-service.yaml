@@ -13,16 +13,16 @@ paths:
   /auth:
 
     post:
-      summary: Authenticate user account
+      summary: Authenticate account
       requestBody:
-        description: User credentials
+        description: Account credentials
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/credentials'
       responses:
         '200':
-          description: User account authenticated
+          description: Account account authenticated
           content:
             application/json:
               schema:
@@ -45,7 +45,7 @@ paths:
     parameters:
       - name: username
         in: path
-        description: username of the user
+        description: username of the account
         schema:
           type: string
         example: PetWard
@@ -63,18 +63,18 @@ paths:
                 $ref: '#/components/schemas/account'
 
     post:
-      summary: Create account for user
+      summary: Create account for this username
       requestBody:
-        description: User of the account
+        description: Account of the account
         content:
           'application/json':
             schema:
               $ref: '#/components/schemas/userWithCredentials'
       responses:
         400:
-          description: Invalid user input (Bad Request)
+          description: Invalid input (Bad Request)
         409:
-          description: Already exists (Conflict)
+          description: Username already exists (Conflict)
         201:
           description: Created
 
@@ -92,7 +92,7 @@ paths:
         400:
           description: Username does not match body or is invalid
         401:
-          description: User unauthorized to do this action
+          description: Account unauthorized to do this action
         404:
           description: Account not found
 
@@ -113,7 +113,7 @@ paths:
         schema:
           type: string
         example: "Alice007"
-        description: The user username
+        description: The account username
       - name: value
         in: path
         required: true
@@ -123,7 +123,7 @@ paths:
         example: 1000.0
         description: The amount of cash to add
     patch:
-      summary: Add cash to the account of the user
+      summary: Add cash to the account
       responses:
         200:
           description: Cash added
@@ -136,7 +136,7 @@ paths:
         404:
           description: Account not found
         401:
-          description: User unauthorized to do this action
+          description: Account unauthorized to do this action
 
 
   /accounts/{username}/remove-cash/{value}:
@@ -147,7 +147,7 @@ paths:
         schema:
           type: string
         example: "Alice007"
-        description: The user username
+        description: The account username
       - name: value
         in: path
         required: true
@@ -157,7 +157,7 @@ paths:
         example: 1000.0
         description: The amount of cash to remove
     patch:
-      summary: Remove cash from the account of the user
+      summary: Remove cash from the account of the username
       responses:
         200:
           description: Cash removed
@@ -195,7 +195,7 @@ paths:
         400:
           description: Bad Request
         401:
-          description: User unauthorized to do this action
+          description: Account unauthorized to do this action
         404:
           description: Account not found
 
@@ -234,7 +234,7 @@ paths:
         400:
           description: Bad Request
         401:
-          description: User unauthorized to do this action
+          description: Account unauthorized to do this action
         404:
           description: Ressource not found
 
@@ -316,7 +316,7 @@ paths:
                   schema:
                     $ref: "#/components/schemas/order"
             401:
-              description: User unauthorized to do this action
+              description: Account unauthorized to do this action
             404:
               description: Order not found
 
@@ -326,7 +326,7 @@ paths:
         200:
           description: Order deleted
         401:
-          description: User unauthorized to do this action
+          description: Account unauthorized to do this action
         404:
           description: Order not found
         405:
