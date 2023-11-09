@@ -207,7 +207,9 @@ components:
         creation-date:
           type: string
           format: date-time
-
+        value-of-already-sold-stocks:
+          type: number
+          format: double
 
 
 
