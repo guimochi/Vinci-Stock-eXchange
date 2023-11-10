@@ -70,7 +70,7 @@ paths:
                 $ref: '#/components/schemas/price'
 
 
-  /prices/udpate-after-new-order:
+  /prices/udpate-new-price:
     post:
       summary: Update price after new order
       requestBody:
@@ -112,10 +112,10 @@ components:
       properties:
         stockName:
           type: string
-        buyPrice:
+        buyMaxPrice:
           type: number
           format: double
-        sellPrice:
+        sellMinPrice:
           type: number
           format: double
         lastPrice:

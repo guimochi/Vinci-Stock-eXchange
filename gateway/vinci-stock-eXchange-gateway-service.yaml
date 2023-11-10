@@ -104,6 +104,18 @@ paths:
         404:
           description: Account not found
 
+  /accounts/{username}/total-value:
+    get:
+      summary: Get the total value of an account
+      responses:
+        200:
+          description: Total value
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/total-value'
+        404:
+          description: Account not found
 
   /accounts/{username}/add-cash/{value}:
     parameters:
@@ -157,7 +169,7 @@ paths:
         example: 1000.0
         description: The amount of cash to remove
     patch:
-      summary: Remove cash from the account of the username
+      summary: Remove cash from the account
       responses:
         200:
           description: Cash removed
@@ -522,3 +534,16 @@ components:
         lastPrice:
           type: number
           format: double
+
+    total-value:
+      type: object
+      properties:
+        cash:
+          type: number
+          format: double
+        stocks:
+          type: number
+          format: double
+      example:
+        cash: 1000.0
+        stocks: 3000.0

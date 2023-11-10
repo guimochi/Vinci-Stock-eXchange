@@ -24,6 +24,18 @@ paths:
         404:
           description: Owner or stock not found
 
+    get:
+        summary: Get all orders
+        responses:
+            200:
+              description: Orders found
+              content:
+                  application/json:
+                    schema:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/order"
+
   /orders/{order-id}:
     parameters:
       - name: order-id
@@ -143,22 +155,6 @@ paths:
           type: string
           enum: [ BUY, SELL ]
         example: "BUY"
-
-    get:
-      summary: 'Get all a list of orders of a stock, empty if no orders, filtered by side [ BUY, 
-      SELL ] if asked'
-      responses:
-        200:
-          description: Orders found
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/order"
-        400:
-          description: Invalid input, object invalid
-
 
 components:
   schemas:
