@@ -141,9 +141,7 @@ paths:
           content:
             'application/json':
               schema:
-                type: number
-                format: double
-                example: 1000.0
+                $ref: '#/components/schemas/total-value'
         404:
           description: Account not found
 
@@ -174,8 +172,20 @@ components:
           type: string
         lastname:
           type: string
-
       example:
         username: "Alice007"
         firstname: "Alice"
         lastname: "Wonderland"
+
+    total-value:
+      type: object
+      properties:
+        cash:
+          type: number
+          format: double
+        stocks:
+          type: number
+          format: double
+      example:
+        cash: 1000.0
+        stocks: 3000.0
