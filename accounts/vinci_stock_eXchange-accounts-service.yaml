@@ -32,7 +32,7 @@ paths:
           description: Username does not match body or is invalid
         409:
           description: Username already taken
-          
+
     get:
       summary: Get an account
       responses:
@@ -59,7 +59,7 @@ paths:
           description: Username does not match body or is invalid
         404:
           description: Account not found
-          
+
     delete:
       summary: Delete an account
       responses:
@@ -87,50 +87,65 @@ paths:
         example: 1000.0
         description: The amount of cash to add
     patch:
-        summary: Add cash to the account
-        responses:
-            200:
-                description: Cash added
-                content:
-                    'application/json':
-                        schema:
-                            $ref: '#/components/schemas/account'
-            400:
-                description: Value is invalid
-            404:
-                description: Account not found
+      summary: Add cash to the account
+      responses:
+        200:
+          description: Cash added
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/account'
+        400:
+          description: Value is invalid
+        404:
+          description: Account not found
 
 
   /accounts/{username}/remove-cash/{value}:
     parameters:
-    - name: username
-      in: path
-      required: true
-      schema:
-        type: string
-      example: "Alice007"
-      description: The account username
-    - name: value
-      in: path
-      required: true
-      schema:
-        type: number
-        format: double
-      example: 1000.0
-      description: The amount of cash to remove
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "Alice007"
+        description: The account username
+      - name: value
+        in: path
+        required: true
+        schema:
+          type: number
+          format: double
+        example: 1000.0
+        description: The amount of cash to remove
     patch:
-        summary: Remove cash from the account
-        responses:
-            200:
-              description: Cash removed
-              content:
-                  'application/json':
-                    schema:
-                     $ref: '#/components/schemas/account'
-            400:
-              description: Value is invalid
-            404:
-              description: Account not found
+      summary: Remove cash from the account
+      responses:
+        200:
+          description: Cash removed
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/account'
+        400:
+          description: Value is invalid
+        404:
+          description: Account not found
+
+  /accounts/{username}/total-value:
+    get:
+      summary: Get the total value of an account
+      responses:
+        200:
+          description: Total value found
+          content:
+            'application/json':
+              schema:
+                type: number
+                format: double
+                example: 1000.0
+        404:
+          description: Account not found
 
 components:
   schemas:
