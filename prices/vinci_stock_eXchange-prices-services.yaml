@@ -68,10 +68,9 @@ paths:
             'application/json':
               schema:
                 $ref: '#/components/schemas/price'
-        404:
-          description: No stock found
 
-  /prices/udpateAfterNewOrder:
+
+  /prices/udpate-after-new-order:
     post:
       summary: Update price after new order
       requestBody:
@@ -105,8 +104,6 @@ paths:
                 $ref: '#/components/schemas/price'
         400:
           description: Bad request
-        404:
-          description: No stock found
 
 components:
   schemas:
