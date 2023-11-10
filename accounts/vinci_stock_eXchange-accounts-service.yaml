@@ -137,7 +137,7 @@ paths:
       summary: Get the total value of an account
       responses:
         200:
-          description: Total value found
+          description: Total value
           content:
             'application/json':
               schema:
